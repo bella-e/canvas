@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+    牟云飞
+    15562579597
+-->
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body{
+            background-image: url("image/bg.webp");
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvasData" width="400px" height="400px" style="background: url('images/background.png')"></canvas>
+<canvas id="canvasData2" width="400px" height="400px" style="background: url('images/background.png')"></canvas>
+<canvas id="canvasData3" width="400px" height="400px" style="background: url('images/background.png')"></canvas>
+<canvas id="canvasData4" width="400px" height="400px" style="background: url('images/background.png')"></canvas>
+<canvas id="canvasData5" width="400px" height="400px" style="background: url('images/background.png')"></canvas>
+<canvas id="canvasData6" width="400px" height="400px" style="background: url('images/background.png')"></canvas>
+<canvas id="canvasData7" width="400px" height="400px" style="background: url('images/background.png')"></canvas>
+<canvas id="canvasData8" width="400px" height="400px" style="background: url('images/background.png')"></canvas>
+<script src="js/fatterRotating.mini.js"></script>
+<script>
+ 
+    var circle ;
+    var circle2 ;
+    var circle3 ;
+    var circle4 ;
+    var circle5 ;
+    var circle6 ;
+    var circle7 ;
+    var circle8 ;
+    function init(){
+        //第一个圆圈
+        var canvas = document.getElementById("canvasData");
+        var txtOpts={
+            content:'40%',
+            txtColor:'RGB(21,253,255)',
+            align:'center',
+            font: '30px Arial', //CSS font 属性相同的语法
+            textBaseline:'middle'  //基线对齐选项,top, hanging, middle, alphabetic, ideographic, bottom。默认值是 alphabetic
+        };
+        var opts = [{
+            radius: 51,//半径，内圆动态线，
+            lineWidth: 10 ,//宽度，调整动态线宽度
+            strokeStyle: 'RGBA(200,200,200,0.5)',//颜色，支持rgb rgba 网页等
+            degreeStart: -90,//开始角度
+            degreeEnd: 200,//结束角度
+            stepStart: 4,//开始递增数量
+            stepEnd: 3,//结束递增数量
+            angleSpeed:0.01//转动速度
+        },{
+            radius: 50,//内圆线半径，静态的
+            lineWidth: 1,
+            strokeStyle: '#eeeeee',
+            degreeStart: 360,
+            degreeEnd: 360
+        },{
+            radius: 50,//静态最外成圈，非刻度盘
+            lineWidth: 1,
+            strokeStyle: '#eeeeee',
+            degreeStart: -90,
+            degreeEnd: 360
+        },{
+            radius: 53,//内刻度盘
+            lineWidth: 5, //刻度盘宽度
+            fillStyle:'RGBA(19,238,240,1)',//内刻度盘，静态色
+            emFillStyle: 'RGB(255,255,255)',//内刻度盘，变化色
+            lengthParam:6,//刻度线长度
+            step: 10 //变化占用多少个格 0-60
+        },{
+            radius: 80,//外刻度盘
+            lineWidth: 5, //刻度盘宽度
+            fillStyle:'RGBA(21,253,255,0)',//外刻度盘，静态色
+            emFillStyle: '219,38,40',//外刻度盘，变化色
+            step:18, //变化占用多少个格 0-19
+            speed:0.4 //转动速度
+        }];
+        circle = RotatingCircle(canvas,opts,txtOpts);
+        circle.init();
+        circle.chageTxt("80%");
+ 
+        //第二个圆圈
+        var canvas2 = document.getElementById("canvasData2");
+        var txtOpts2={
+            content:'40%',
+            txtColor:'RGB(21,253,255)',
+            align:'center',
+            font: '30px Arial', //CSS font 属性相同的语法
+            textBaseline:'middle'  //基线对齐选项,top, hanging, middle, alphabetic, ideographic, bottom。默认值是 alphabetic
+        };
+        var opts2 = [{
+            radius: 40,//半径，内圆动态线，
+            lineWidth: 40 ,//宽度，调整动态线宽度
+            strokeStyle: 'RGBA(200,200,200,0.5)',//颜色，支持rgb rgba 网页等
+            degreeStart: -90,//开始角度
+            degreeEnd: 200,//结束角度
+            stepStart: 4,//开始递增数量
+            stepEnd: 3,//结束递增数量
+            angleSpeed:0.01//转动速度
+        },{
+            radius: 50,//内圆线半径，静态的
+            lineWidth: 1,
+            strokeStyle: '#eeeeee',
+            degreeStart: -90,
+            degreeEnd: 360
+        },{
+            radius: 50,//静态最外成圈，非刻度盘
+            lineWidth: 1,
+            strokeStyle: '#eeeeee',
+            degreeStart: -90,
+            degreeEnd: 360
+        },{
+            radius: 53,//内刻度盘
+            lineWidth: 8, //刻度盘宽度
+            fillStyle:'RGBA(19,238,240,1)',//内刻度盘，静态色
+            emFillStyle: 'RGB(255,255,255)',//内刻度盘，变化色
+            lengthParam:6,//刻度线长度
+            step: 10 //变化占用多少个格 0-60
+        },{
+            radius: 50,//外刻度盘
+            lineWidth: 5, //刻度盘宽度
+            fillStyle:'RGBA(21,253,255,0)',//外刻度盘，静态色
+            emFillStyle: '219,38,40',//外刻度盘，变化色
+            step:12, //变化占用多少个格 0-19
+            speed:0.4 //转动速度
+        }];
+        circle2 = RotatingCircle(canvas2,opts2,txtOpts2);
+        circle2.init();
+        circle2.chageTxt("20%");
+ 
+ 
+        //第三个圆圈
+        var canvas3 = document.getElementById("canvasData3");
+        var txtOpts3={
+            content:'40%',
+            txtColor:'RGB(21,253,255)',
+            align:'center',
+            font: '30px Arial', //CSS font 属性相同的语法
+            textBaseline:'middle'  //基线对齐选项,top, hanging, middle, alphabetic, ideographic, bottom。默认值是 alphabetic
+        };
+        var opts3 = [{
+            radius: 85,//半径，内圆动态线，
+            lineWidth: 2 ,//宽度，调整动态线宽度
+            strokeStyle: 'RGBA(21,255,255,1)',//颜色，支持rgb rgba 网页等
+            degreeStart: -180,//开始角度
+            degreeEnd: 200,//结束角度
+            stepStart: 4,//开始递增数量
+            stepEnd: 3,//结束递增数量
+            angleSpeed:0.01//转动速度
+        },{
+            radius: 65,//内圆线半径，静态的
+            lineWidth: 3,
+            strokeStyle: 'RGBA(19,238,240,1)',
+            degreeStart: -90,
+            degreeEnd: 360
+        },{
+            radius: 55,//静态最外成圈，非刻度盘
+            lineWidth: 1,
+            strokeStyle: '#eeeeee',
+            degreeStart: -90,
+            degreeEnd: 360
+        },{
+            radius: 75,//内刻度盘
+            lineWidth: 8, //刻度盘宽度
+            fillStyle:'RGBA(19,238,240,1)',//内刻度盘，静态色
+            emFillStyle: 'RGB(255,255,255)',//内刻度盘，变化色
+            lengthParam:1,//刻度线长度
+            step: 10 //变化占用多少个格 0-60
+        },{
+            radius: 50,//外刻度盘
+            lineWidth: 3, //刻度盘宽度
+            fillStyle:'RGBA(21,253,255,0)',//外刻度盘，静态色
+            emFillStyle: '21,253,255',//外刻度盘，变化色
+            step:12, //变化占用多少个格 0-19
+            speed:0.4 //转动速度
+        }];
+        circle3 = RotatingCircle(canvas3,opts3,txtOpts3);
+        circle3.init();
+        circle3.chageTxt("20%");
+ 
+        //第三个圆圈
+        var canvas4 = document.getElementById("canvasData4");
+        var txtOpts4={
+            content:'40%',
+            txtColor:'RGB(21,253,255)',
+            align:'center',
+            font: '30px Arial', //CSS font 属性相同的语法
+            textBaseline:'middle'  //基线对齐选项,top, hanging, middle, alphabetic, ideographic, bottom。默认值是 alphabetic
+        };
+        var opts4 = [{
+            radius: 72,//半径，内圆动态线，
+            lineWidth: 2 ,//宽度，调整动态线宽度
+            strokeStyle: 'RGBA(255,255,255,1)',//颜色，支持rgb rgba 网页等
+            degreeStart: -180,//开始角度
+            degreeEnd: 200,//结束角度
+            stepStart: 4,//开始递增数量
+            stepEnd: 3,//结束递增数量
+            angleSpeed:0.01//转动速度
+        },{
+            radius: 65,//内圆线半径，静态的
+            lineWidth: 5,
+            strokeStyle: 'RGBA(21,255,255,0.5)',
+            degreeStart: -90,
+            degreeEnd: 360
+        },{
+            radius: 50,//静态最外成圈，非刻度盘
+            lineWidth: 1,
+            strokeStyle: '#eeeeee',
+            degreeStart: -90,
+            degreeEnd: 360
+        },{
+            radius: 75,//内刻度盘
+            lineWidth: 4, //刻度盘宽度
+            fillStyle:'RGBA(19,238,240,1)',//内刻度盘，静态色
+            emFillStyle: 'RGB(255,255,255)',//内刻度盘，变化色
+            lengthParam:12,//刻度线长度
+            step: 10 //变化占用多少个格 0-60
+        },{
+            radius: 50,//外刻度盘
+            lineWidth: 2, //刻度盘宽度
+            fillStyle:'RGBA(21,253,255,0)',//外刻度盘，静态色
+            emFillStyle: '21,253,255',//外刻度盘，变化色
+            step:12, //变化占用多少个格 0-19
+            speed:0.4 //转动速度
+        }];
+        circle4 = RotatingCircle(canvas4,opts4,txtOpts4);
+        circle4.init();
+        circle4.chageTxt("20%");
+ 
+ 
+        //第五个圆圈
+        var canvas5 = document.getElementById("canvasData5");
+        var txtOpts5={
+            content:'88%',
+            txtColor:'RGB(21,253,255)',
+            align:'center',
+            font: '30px Arial', //CSS font 属性相同的语法
+            textBaseline:'middle'  //基线对齐选项,top, hanging, middle, alphabetic, ideographic, bottom。默认值是 alphabetic
+        };
+        var opts5 = [{
+            radius: 90,//半径，内圆动态线，
+            lineWidth: 20 ,//宽度，调整动态线宽度
+            strokeStyle: 'RGBA(21,253,255,0.5)',//颜色，支持rgb rgba 网页等
+            degreeStart: -90,//开始角度
+            degreeEnd: 200,//结束角度
+            stepStart: 4,//开始递增数量
+            stepEnd: 3,//结束递增数量
+            angleSpeed:0.01//转动速度
+        },{
+            radius: 50,//内圆线半径，静态的
+            lineWidth: 1,
+            strokeStyle: '#eeeeee',
+            degreeStart: 360,
+            degreeEnd: 360
+        },{
+            radius: 50,//静态最外成圈，非刻度盘
+            lineWidth: 1,
+            strokeStyle: '#eeeeee',
+            degreeStart: -90,
+            degreeEnd: 360
+        },{
+            radius: 53,//内刻度盘
+            lineWidth: 5, //刻度盘宽度
+            fillStyle:'RGBA(19,238,240,1)',//内刻度盘，静态色
+            emFillStyle: 'RGB(255,255,255)',//内刻度盘，变化色
+            lengthParam:6,//刻度线长度
+            step: 10 //变化占用多少个格 0-60
+        },{
+            radius: 80,//外刻度盘
+            lineWidth: 5, //刻度盘宽度
+            fillStyle:'RGBA(21,253,255,0)',//外刻度盘，静态色
+            emFillStyle: '219,38,40',//外刻度盘，变化色
+            step:18, //变化占用多少个格 0-19
+            speed:0.4 //转动速度
+        }];
+        circle5 = RotatingCircle(canvas5,opts5,txtOpts5);
+        circle5.init();
+        circle5.chageTxt("66%");
+ 
+ 
+        //第六个圆圈
+        var canvas6 = document.getElementById("canvasData6");
+        var txtOpts6={
+            content:'88%',
+            txtColor:'RGB(21,253,255)',
+            align:'center',
+            font: '30px Arial', //CSS font 属性相同的语法
+            textBaseline:'middle'  //基线对齐选项,top, hanging, middle, alphabetic, ideographic, bottom。默认值是 alphabetic
+        };
+        var opts6 = [{
+            radius: 60,//半径，内圆动态线，
+            lineWidth: 6 ,//宽度，调整动态线宽度
+            strokeStyle: 'RGBA(200,200,200,0.6)',//颜色，支持rgb rgba 网页等
+            degreeStart: -180,//开始角度
+            degreeEnd: 200,//结束角度
+            stepStart: 4,//开始递增数量
+            stepEnd: 3,//结束递增数量
+            angleSpeed:0.01//转动速度
+        },{
+            radius: 65,//内圆线半径，静态的
+            lineWidth: 3,
+            strokeStyle: 'RGBA(19,238,240,1)',
+            degreeStart: -90,
+            degreeEnd: 360
+        },{
+            radius: 55,//静态最外成圈，非刻度盘
+            lineWidth: 1,
+            strokeStyle: 'RGBA(19,238,240,0)',
+            degreeStart: -90,
+            degreeEnd: 360
+        },{
+            radius: 70,//内刻度盘
+            lineWidth: 8, //刻度盘宽度
+            fillStyle:'RGBA(19,238,240,1)',//内刻度盘，静态色
+            emFillStyle: 'RGB(255,255,255)',//内刻度盘，变化色
+            lengthParam:2,//刻度线长度
+            step: 10 //变化占用多少个格 0-60
+        },{
+            radius: 85,//外刻度盘
+            lineWidth: 3, //刻度盘宽度
+            fillStyle:'RGBA(21,253,255,0.3)',//外刻度盘，静态色
+            emFillStyle: '21,253,255',//外刻度盘，变化色
+            step:12, //变化占用多少个格 0-19
+            speed:0.4 //转动速度
+        }];
+        circle6 = RotatingCircle(canvas6,opts6,txtOpts6);
+        circle6.init();
+        circle6.chageTxt("66%");
+ 
+        //第七个圆圈
+        var canvas7 = document.getElementById("canvasData7");
+        var txtOpts7={
+            content:'88%',
+            txtColor:'RGB(21,253,255)',
+            align:'center',
+            font: '30px Arial', //CSS font 属性相同的语法
+            textBaseline:'middle'  //基线对齐选项,top, hanging, middle, alphabetic, ideographic, bottom。默认值是 alphabetic
+        };
+        var opts7 = [{
+            radius: 60,//半径，内圆动态线，
+            lineWidth: 6 ,//宽度，调整动态线宽度
+            strokeStyle: 'RGBA(200,200,200,0.6)',//颜色，支持rgb rgba 网页等
+            degreeStart: -180,//开始角度
+            degreeEnd: 200,//结束角度
+            stepStart: 4,//开始递增数量
+            stepEnd: 3,//结束递增数量
+            angleSpeed:0.01//转动速度
+        },{
+            radius: 65,//内圆线半径，静态的
+            lineWidth: 3,
+            strokeStyle: 'RGBA(19,238,240,1)',
+            degreeStart: -90,
+            degreeEnd: 360
+        },{
+            radius: 55,//静态最外成圈，非刻度盘
+            lineWidth: 1,
+            strokeStyle: 'RGBA(19,238,240,0)',
+            degreeStart: -90,
+            degreeEnd: 360
+        },{
+            radius: 70,//内刻度盘
+            lineWidth: 8, //刻度盘宽度
+            fillStyle:'RGBA(19,238,240,1)',//内刻度盘，静态色
+            emFillStyle: 'RGB(255,255,255)',//内刻度盘，变化色
+            lengthParam:6,//刻度线长度
+            step: 10 //变化占用多少个格 0-60
+        },{
+            radius: 85,//外刻度盘
+            lineWidth: 6, //刻度盘宽度
+            fillStyle:'RGBA(21,253,255,0.3)',//外刻度盘，静态色
+            emFillStyle: '21,253,255',//外刻度盘，变化色
+            step:12, //变化占用多少个格 0-19
+            speed:0.4 //转动速度
+        }];
+        circle7 = RotatingCircle(canvas7,opts7,txtOpts7);
+        circle7.init();
+        circle7.chageTxt("66%");
+ 
+        //第八个圆圈
+        var canvas8 = document.getElementById("canvasData8");
+        var txtOpts8={
+            content:'88%',
+            txtColor:'RGB(21,253,255)',
+            align:'center',
+            font: '30px Arial', //CSS font 属性相同的语法
+            textBaseline:'middle'  //基线对齐选项,top, hanging, middle, alphabetic, ideographic, bottom。默认值是 alphabetic
+        };
+        var opts8 = [{
+            radius: 60,//半径，内圆动态线，
+            lineWidth: 30 ,//宽度，调整动态线宽度
+            strokeStyle: 'RGBA(200,200,200,0.6)',//颜色，支持rgb rgba 网页等
+            degreeStart: -180,//开始角度
+            degreeEnd: 200,//结束角度
+            stepStart: 4,//开始递增数量
+            stepEnd: 3,//结束递增数量
+            angleSpeed:0.01//转动速度
+        },{
+            radius: 65,//内圆线半径，静态的
+            lineWidth: 3,
+            strokeStyle: 'RGBA(19,238,240,1)',
+            degreeStart: -90,
+            degreeEnd: 360
+        },{
+            radius: 55,//静态最外成圈，非刻度盘
+            lineWidth: 1,
+            strokeStyle: 'RGBA(19,238,240,0)',
+            degreeStart: -90,
+            degreeEnd: 360
+        },{
+            radius: 70,//内刻度盘
+            lineWidth: 8, //刻度盘宽度
+            fillStyle:'RGBA(19,238,240,1)',//内刻度盘，静态色
+            emFillStyle: 'RGB(255,255,255)',//内刻度盘，变化色
+            lengthParam:16,//刻度线长度
+            step: 10 //变化占用多少个格 0-60
+        },{
+            radius: 85,//外刻度盘
+            lineWidth: 6, //刻度盘宽度
+            fillStyle:'RGBA(21,253,255,0.3)',//外刻度盘，静态色
+            emFillStyle: '21,253,255',//外刻度盘，变化色
+            step:12, //变化占用多少个格 0-19
+            speed:0.4 //转动速度
+        }];
+        circle8 = RotatingCircle(canvas8,opts8,txtOpts8);
+        circle8.init();
+        circle8.chageTxt("66%");
+        //动起来
+        refer();
+    }
+ 
+    //统一的动画入口
+    function refer(){
+        window.requestAnimationFrame(function(){
+            circle.createCircle();
+            circle2.createCircle();
+            circle3.createCircle();
+            circle4.createCircle();
+            circle5.createCircle();
+            circle6.createCircle();
+            circle7.createCircle();
+            circle8.createCircle();
+            refer();
+        });
+    }
+ 
+    init();
+ 
+ 
+</script>
+</body>
+</html>

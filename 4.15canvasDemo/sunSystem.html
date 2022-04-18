@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .sun{
+            width:300px;
+            margin:0 auto;
+            background-color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="sun">
+        <canvas id="solar" width="300" height="300" style="border:1px solid red;">
+
+        </canvas>   
+    </div>
+</body>
+<script>
+    let canvas = document.getElementById("solar");
+    let  ctx = canvas.getContext('2d');
+    let sun;
+    let earth;
+    let moon;
+    function init(){
+        sun  = new Image();
+        earth = new Image();
+        moon = new Image();
+        sun.src = 'image/Canvas_sun.png';
+        earth.src = 'image/Canvas_earth.png';
+        moon.src = 'image/Canvas_moon.png';
+        sun.onload = function(){
+            draw();
+        }
+       
+    }
+    init();
+    function draw(){
+        ctx.clearRect(0,0,300,300);//清除所有内容
+        // 绘制太阳
+        ctx.drawImage(sun,0,0,300,300);
+        ctx.save();
+        ctx.translate(150, 150);
+        //绘制地球轨道
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgba(255,255,0,0.5)';
+        ctx.arc(0,0,100,0,2*Math.PI);
+        ctx.stroke();
+        let time = new Date();
+        //绘制地球
+       ctx.rotate(2 * Math.PI / 60 * time.getSeconds() + 2 * Math.PI / 60000 * time.getMilliseconds());
+        ctx.translate(100, 0);
+        ctx.drawImage(earth, -12, -12);
+        //绘制月球轨道
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+        ctx.arc(0,0,30,0,2*Math.PI)
+        ctx.stroke();
+
+        //绘制月球
+        ctx.rotate(2 * Math.PI / 6 * time.getSeconds() + 2 * Math.PI / 6000 * time.getMilliseconds());
+        ctx.translate(30, 0);
+        ctx.drawImage(moon,-4,-4);
+        ctx.restore();
+        requestAnimationFrame(draw);
+    }
+</script>
+</html>

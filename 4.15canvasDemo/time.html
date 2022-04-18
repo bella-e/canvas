@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>time</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 100px auto;
+            border:1px solid red;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <canvas id="timer" width="300" height="300" ></canvas>
+    </div>
+   
+</body>
+<script>
+
+        let PI = Math.PI;
+        let timer = document.getElementById("timer");
+        let ctx = timer.getContext("2d");
+        init();
+        function init(){
+            requestAnimationFrame(function step(){
+                drawDial();
+                handsAll();
+                console.log("1");
+                requestAnimationFrame(step);
+            });
+        }
+    // 绘制表盘
+    function drawDial(){
+        ctx.clearRect(0,0, timer.width, timer.height);
+        //绘制圆周
+        ctx.save();
+        ctx.translate(150,150);
+        ctx.beginPath();
+        ctx.arc(0,0,148,0,PI*2);
+        ctx.stroke();
+        ctx.closePath();
+        for(let i=0;i<60;i++){
+            ctx.save();
+            ctx.beginPath();
+            ctx.rotate(PI*2/60*i);
+            ctx.moveTo(0,-148);
+            ctx.lineTo(0,-120);
+            ctx.strokeStyle = i%5?'blue':'red';
+            ctx.lineWidth = i%5? 2:4;
+            ctx.stroke();
+            ctx.closePath();
+            ctx.restore();
+        }
+        ctx.restore();
+    }
+
+    //绘制时分秒针 red hour 45 3.5    green minute -70 2.5   bulue second -100 1
+
+    function handsAll(){
+            let time = new Date();
+            let h = time.getHours();
+            let m = time.getMinutes();
+            let s = time.getSeconds();
+            let hourAngle = 2*PI/24*h;
+            let minuteAngle =  2*PI/60*m;
+            let secondAngle =2*PI/60*s;
+            let color;
+            let timerAngle;
+            let lineWidth;
+            let length;
+            drawHand(hourAngle,45,3.5,'red');//绘制时针
+            drawHand(minuteAngle,70,2.5,'green');//绘制分针
+            drawHand(secondAngle,100,1,'blue'); //绘制秒针
+    }
+   function drawHand(timerAngle,length,lineWidth,color){
+        ctx.save();
+        // 绘制时针
+        ctx.translate(150,150); 
+        ctx.beginPath();
+        ctx.rotate(timerAngle);
+        ctx.moveTo(0,0);
+        ctx.lineTo(0,-length);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = lineWidth;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+        ctx.closePath();
+        ctx.restore();
+
+    }    
+</script>
+</html>

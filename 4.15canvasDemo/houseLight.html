@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="tutorial" width="300" height="300" style="border:1px solid red;">
+
+    </canvas>
+</body>
+<script>
+    var offset = 0;
+    var canvas = document.getElementById("tutorial");//获取画布
+    var context = canvas.getContext('2d');
+    function draw(){
+       
+        
+        if(canvas.getContext){
+            //获得2d上下文对象
+            context.clearRect(0,0, canvas.width, canvas.height);
+            //绘制矩形
+            //跑马灯应用
+            context.setLineDash([10,4,2]);
+            context.lineDashOffset = -offset; //如果是正数则逆时针
+            context.strokeRect(100,100,100,100);
+            }
+    }
+    function houseLight(){
+        offset++;
+        draw();
+        //延时执行
+        setTimeout(houseLight,30);
+    }
+    houseLight();
+</script>
+</html>

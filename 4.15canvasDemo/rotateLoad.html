@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas{
+            border:1px solid red;
+            background: url('image/bg.webp');
+            display: block;
+            margin:auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvasData" width="400px" height="400px"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById("canvasData");
+    var ctx = canvas.getContext('2d');//获取上下文为2d的画布对象
+    var width = canvas.width;
+    var height = canvas.height;
+    var PI = Math.PI
+    var angle;
+    //创建文本
+
+    function createText(){
+        ctx.save();
+        ctx.font= '30px Arial';
+        ctx.fillStyle = 'RGB(21,253,255)';//设置文本颜色
+        ctx.textAlign = "center";//水平居中：设置 ctx.textAlign = "center"；x = 画布宽度的一半
+        ctx.textBaseline = "middle";//垂直居中：设置 ctx.textBaseline = "middle"；y = 画布高度的一半。
+        ctx.fillText("80%",200,200);
+        ctx.restore();
+        
+    }
+  
+    function getAngle(angle){
+            return Math.PI/180*angle;
+    }
+    var startAngle = 0;
+    var endAngle = 0;
+    var degree = 0;
+    var step = 10;
+    var controlSpeed = 0;
+    var flag = 1;
+    function createCircle(){
+        controlSpeed++
+       ctx.clearRect(0,0,width,height);//清除画布
+       ctx.save();
+       //内圈1
+        degree++;
+        ctx.save();
+        ctx.translate(width/2,height/2);
+        ctx.beginPath();
+        ctx.rotate(getAngle(degree));
+        
+        if(flag==1){
+            startAngle = startAngle +2;
+            endAngle = endAngle+4;
+        }else{
+            startAngle = startAngle +4;
+            endAngle = endAngle+2;
+        }
+        if(endAngle%360==startAngle%360){
+            flag = -flag;
+        }
+       
+        ctx.arc(0,0,51,getAngle(startAngle),getAngle(endAngle));
+        ctx.lineWidth =10;
+        ctx.strokeStyle = 'RGBA(200,200,200,.5)';
+        ctx.stroke();
+        ctx.restore();
+        ctx.translate(width/2,height/2);
+        // 内圈2 刻度盘
+        if(controlSpeed%2==0){
+            step--;
+            if(step<0){
+                step = 50;
+            }
+        }
+        for(let i=0;i<60;i++){
+            ctx.save();
+            ctx.beginPath();
+            ctx.rotate(PI*2/60*i);
+            if(i>=step&&i<(step+10)){   
+                ctx.fillStyle=i%5?'RGBA(255,255,255,1)':'black';
+            }else{
+                ctx.fillStyle=i%5?'RGBA(19,238,240,1)':'black';
+            }
+       
+            ctx.fillRect(0,-65,6,6);
+            ctx.closePath();
+            ctx.restore()
+        }
+        //内圈3
+        ctx.arc(0,0,70,0,2*PI);
+        ctx.lineWidth=2;
+        ctx.stroke();
+        
+        //内圈4
+        var opacity =0;
+        var len = 78;
+        var index = 0.8 / len *3;
+        ctx.rotate(getAngle(degree*3));
+        for(var i=0;i<len;i++){
+            opacity=opacity+index;
+            if(opacity>0.8){
+                opacity =0;
+            }
+            ctx.save();
+            ctx.beginPath();
+            ctx.rotate(PI*2/len*i);
+            ctx.fillStyle='RGBA(219,38,40,'+opacity+')';
+            ctx.arc(0,-len,5,0,2*PI);
+            ctx.fill();
+            ctx.closePath();
+            ctx.restore();
+        }
+        ctx.restore();
+
+    }
+    init();
+    function init(){
+        requestAnimationFrame(function step(){
+            createCircle();
+            createText()
+            requestAnimationFrame(step);
+
+        });
+    }
+</script>
+</html>
